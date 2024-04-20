@@ -282,7 +282,8 @@ function guardarCambiosGasto(gastoId, tr) {
     .then(() => {
       invocarRecalculoDeGastos();
       cargarRoommates();
-      alert('Gasto actualizado correctamente');
+      showToast('Gasto actualizado correctamente.', 'success');
+      //alert('Gasto actualizado correctamente');
       tr.querySelector('.btn-save').classList.add('d-none');
       tr.querySelector('.btn-edit').classList.remove('d-none');
       tr.querySelector('.btn-delete').classList.remove('d-none');

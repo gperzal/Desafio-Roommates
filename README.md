@@ -1,4 +1,4 @@
-# Roommates Financial Manager
+# Roommates
 
 Un sistema de gestión financiera para compañeros de piso que facilita el seguimiento de los gastos compartidos y el balance de deudas entre miembros.
 
@@ -16,54 +16,34 @@ Este proyecto es una aplicación web que permite a los usuarios agregar y gestio
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![jSON](https://img.shields.io/badge/json-fff?style=for-the-badge&logo=JSON&logoColor=%23292928)
 
-
-## Funcionalidades
-
-### Roommates
-
-- **Agregar Roommate:** Crea un nuevo roommate y recalcula automáticamente los balances.
-- **Eliminar Roommate:** Elimina un roommate y actualiza los balances de los demás.
-- **Editar Roommate:** Permite editar la información de un roommate existente.
-- **Vista Responsiva:** La tabla de roommates es responsiva y se ajusta a diferentes tamaños de pantalla.
-
-### Gastos
-
-- **Agregar Gasto:** Registra un nuevo gasto y lo divide equitativamente entre todos los roommates.
-- **Eliminar Gasto:** Elimina un gasto y recalcula los balances.
-- **Editar Gasto:** Edita la información de un gasto y actualiza los balances correspondientes.
-- **Histórico de Gastos:** Muestra un historial de todos los gastos registrados.
-
-
-### Recálculo de Balances
+### Funcionalidades y Recálculo de Balances
 
 El recálculo de balances se realiza automáticamente en las siguientes situaciones:
 
-| Acción                                | Fórmula de Recálculo                                                                                      |
-| ------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Agregar Gasto                         | Divide el monto total del gasto entre el número total de roommates.                                       |
-| Eliminar Gasto                        | Reduce el "debe" o "recibe" de cada roommate en proporción a su parte en el gasto eliminado.              |
-| Editar Gasto                          | Reasigna los montos de "debe" y "recibe" basados en el nuevo monto y recalcula la división del gasto.     |
-| Agregar Roommate                      | Divide cada gasto existente entre todos los roommates, incluyendo el nuevo.                               |
-| Eliminar Roommate                     | Reasigna los montos de los gastos existentes divididos entre los roommates restantes.                      |
-| Editar Roommate (cambio de pagos)     | Ajusta los montos de "debe" y "recibe" de todos los roommates basados en los cambios de los pagos hechos. |
+| Acción                            | Fórmula de Recálculo                                                                                      |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Agregar Gasto                     | Divide el monto total del gasto entre el número total de roommates.                                       |
+| Eliminar Gasto                    | Reduce el "debe" o "recibe" de cada roommate en proporción a su parte en el gasto eliminado.              |
+| Editar Gasto                      | Reasigna los montos de "debe" y "recibe" basados en el nuevo monto y recalcula la división del gasto.     |
+| Agregar Roommate                  | Divide cada gasto existente entre todos los roommates, incluyendo el nuevo.                               |
+| Eliminar Roommate                 | Reasigna los montos de los gastos existentes divididos entre los roommates restantes.                     |
+| Editar Roommate (cambio de pagos) | Ajusta los montos de "debe" y "recibe" de todos los roommates basados en los cambios de los pagos hechos. |
 
 ### Rutas y Funciones
 
 Las rutas de la API son las siguientes, cada una asociada con su respectiva acción en el backend:
 
-| Ruta                        | Método | Descripción                                                           |
-| --------------------------- | ------ | --------------------------------------------------------------------- |
-| `/roommates`                | GET    | Obtiene la lista de todos los roommates.                              |
-| `/roommates`                | POST   | Agrega un nuevo roommate y recalcula balances.                        |
-| `/roommates/:id`            | PUT    | Actualiza la información de un roommate y recalcula balances.         |
-| `/roommates/:id`            | DELETE | Elimina un roommate y recalcula balances.                             |
-| `/gastos`                   | GET    | Obtiene la lista de todos los gastos registrados.                     |
-| `/gastos`                   | POST   | Registra un nuevo gasto y recalcula balances.                         |
-| `/gastos/:id`               | PUT    | Actualiza la información de un gasto y recalcula balances.            |
-| `/gastos/:id`               | DELETE | Elimina un gasto y recalcula balances.                                |
-| `/recalcular-gastos`        | POST   | Recalcula todos los balances de los roommates en base a los gastos.   |
-
-
+| Ruta                 | Método | Descripción                                                         |
+| -------------------- | ------ | ------------------------------------------------------------------- |
+| `/roommates`         | GET    | Obtiene la lista de todos los roommates.                            |
+| `/roommates`         | POST   | Agrega un nuevo roommate y recalcula balances.                      |
+| `/roommates/:id`     | PUT    | Actualiza la información de un roommate y recalcula balances.       |
+| `/roommates/:id`     | DELETE | Elimina un roommate y recalcula balances.                           |
+| `/gastos`            | GET    | Obtiene la lista de todos los gastos registrados.                   |
+| `/gastos`            | POST   | Registra un nuevo gasto y recalcula balances.                       |
+| `/gastos/:id`        | PUT    | Actualiza la información de un gasto y recalcula balances.          |
+| `/gastos/:id`        | DELETE | Elimina un gasto y recalcula balances.                              |
+| `/recalcular-gastos` | POST   | Recalcula todos los balances de los roommates en base a los gastos. |
 
 ## Instalación
 
