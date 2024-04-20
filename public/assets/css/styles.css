@@ -1,0 +1,28 @@
+
+body {
+
+  background-image: linear-gradient(to right bottom, #2564c2, #4973bd, #6581b6, #7e8faf, #969ca7);
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+.modal-body {
+  color: black;
+  text-shadow: none;
+}
+
+.container {
+width: 70%
+}
+
+
+/* styles.css */
+.roommate-table {
+  animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

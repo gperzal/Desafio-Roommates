@@ -1,0 +1,10 @@
+{
+  "gastos": [
+    {
+      "id": "c3913cda-8eef-4e8b-ad79-e0d0a202bf27",
+      "roommateId": "a1b2",
+      "descripcion": "pago prueba",
+      "monto": 15000
+    }
+  ]
+}
