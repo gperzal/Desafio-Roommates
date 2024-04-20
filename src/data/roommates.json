@@ -1,38 +1,17 @@
 {
   "roommates": [
     {
-      "id": "a1b2",
-      "nombre": "Jacob Heine",
-      "email": "jacob.heine@example.com",
+      "id": "88b2",
+      "nombre": "Milagros Castillo",
+      "email": "milagros.castillo@example.com",
       "debe": 0,
-      "recibe": 12000
-    },
-    {
-      "id": "74bf",
-      "nombre": "Marie Johnson",
-      "email": "marie.johnson@example.com",
-      "debe": 3000,
       "recibe": 0
     },
     {
-      "id": "6c13",
-      "nombre": "Mestan Biçer",
-      "email": "mestan.bicer@example.com",
-      "debe": 3000,
-      "recibe": 0
-    },
-    {
-      "id": "3b2f",
-      "nombre": "Andreo Nascimento",
-      "email": "andreo.nascimento@example.com",
-      "debe": 3000,
-      "recibe": 0
-    },
-    {
-      "id": "9a1d",
-      "nombre": "Valentine Roger",
-      "email": "valentine.roger@example.com",
-      "debe": 3000,
+      "id": "4e0f",
+      "nombre": "Ece Akışık",
+      "email": "ece.akisik@example.com",
+      "debe": 0,
       "recibe": 0
     }
   ]

@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+
 function cargarRoommates() {
   fetch('/roommate')
     .then(response => response.json())
@@ -27,8 +28,8 @@ function cargarRoommates() {
         row.setAttribute('data-id', rm.id);
         row.innerHTML = `
         <td><input type="text" class="form-control form-control-sm" value="${rm.nombre}"   disabled style="border:0;background:transparent;"></td>
-        <td><input type="text" class="form-control form-control-sm" value="${rm.debe}"  disabled style="border:0;background:transparent;"></td>
-        <td><input type="text" class="form-control form-control-sm" value="${rm.recibe}"  disabled style="border:0;background:transparent;"></td>
+        <td><input type="text" class="form-control form-control-sm" value="${formatearMoneda(rm.debe)}"  disabled style="border:0;background:transparent; "></td>
+        <td><input type="text" class="form-control form-control-sm" value="${formatearMoneda(rm.recibe)}"  disabled style="border:0;background:transparent; "></td>
 
         <td>
 
@@ -43,7 +44,9 @@ function cargarRoommates() {
     });
 }
 
-
+function formatearMoneda(valor) {
+  return `$${valor.toLocaleString('es-CL', { maximumFractionDigits: 0 })}`;
+}
 
 function attachEventListeners() {
   document.querySelectorAll('.btn-edit').forEach(icon => {
@@ -103,6 +106,7 @@ function nuevoRoommate(event) {
       return response.json();
     })
     .then(() => {
+      showToast('Roommate agregado exitosamente.', 'success');
       cargarRoommates();  // Recargar los nombres en el selector
       cargarNombresRoommates();
       invocarRecalculoDeGastos();
@@ -132,10 +136,8 @@ function eliminarRoommate(roommateId, tr) {
       invocarRecalculoDeGastos();
     })
     .catch(error => {
-      console.log(`Intentando eliminar roommate con ID: ${roommateId}`);
-      console.log('Elemento TR que se intentará eliminar:', tr);
       console.error('Error al eliminar roommate:', error);
-      alert('No se pudo eliminar el roommate.'); // Es una buena práctica dar feedback al usuario
+      //alert('No se pudo eliminar el roommate.'); 
     });
 }
 
@@ -158,7 +160,7 @@ function cargarHistorialGastos() {
             tr.innerHTML = `
                   <td><input type="text" class="form-control form-control-sm" value="${roommateName}" data-gasto-id="${gasto.roommateId}" disabled style="border:0;background:transparent;"></td>
                   <td><input type="text" class="form-control form-control-sm" value="${gasto.descripcion}" disabled style="border:0;background:transparent;"></td>
-                  <td><input type="text" class="form-control form-control-sm" value="${gasto.monto}" disabled style="border:0;background:transparent;"></td>
+                  <td><input type="text" class="form-control form-control-sm" value="${formatearMoneda(gasto.monto)}" disabled style="border:0;background:transparent;"></td>
                   <td>
                       <button class="btn btn-warning btn-sm btn-edit">
                           <i class="bi bi-pencil-square"></i>
@@ -301,6 +303,8 @@ function eliminarGasto(gastoId) {
         throw new Error('Falló la eliminación del gasto');
       }
       // Intenta encontrar la fila con el atributo data-gasto-id que corresponda al gastoId
+      invocarRecalculoDeGastos();
+      cargarRoommates();
       const filaParaEliminar = document.querySelector(`tr[data-gasto-id="${gastoId}"]`);
       if (!filaParaEliminar) {
         throw new Error('No se encontró la fila del gasto para eliminar en la interfaz.');
@@ -309,7 +313,7 @@ function eliminarGasto(gastoId) {
     })
     .catch(error => {
       console.error('Error al eliminar gasto:', error);
-      alert(error.message);
+      //alert(error.message);
     });
 }
 
@@ -334,21 +338,24 @@ function agregarGasto(event) {
       return response.json();
     })
     .then(() => {
-      form.reset();  // Opcional: resetear el formulario
-      cargarHistorialGastos();  // Recargar el historial de gastos para mostrar el nuevo
-      cargarRoommates();  // Recargar los roommates para actualizar sus balances
-      alert('Gasto agregado exitosamente');
+      form.reset();
+      cargarHistorialGastos();
+      cargarRoommates();
+      invocarRecalculoDeGastos();
+      // alert('Gasto agregado exitosamente');
+      showToast('Gasto agregado exitosamente.', 'success');
     })
     .catch(error => {
       console.error('Error al agregar gasto:', error);
-      alert('No se pudo agregar el gasto.');
+      //alert('No se pudo agregar el gasto.');
     });
 }
 
 
+// Funciones auxiliares para el recalcular de gastos
 function invocarRecalculoDeGastos() {
   fetch('/roommate/recalcular-gastos', {
-    method: 'PUT', // o 'POST' dependiendo de tu implementación
+    method: 'PUT',
     headers: { 'Content-Type': 'application/json' }
   })
     .then(response => {
@@ -364,3 +371,45 @@ function invocarRecalculoDeGastos() {
       console.error('Error:', error);
     });
 }
+
+
+function showToast(message, type = 'success') {
+  const toastContainer = document.getElementById('toast-container');
+
+  // Limpiar toasts anteriores
+  toastContainer.innerHTML = '';
+
+  const toastEl = document.createElement('div');
+  toastEl.classList.add('toast', 'align-items-center', 'text-white', 'border-1', 'fade', 'show');
+  if (type === 'success') {
+    toastEl.classList.add('bg-success');
+  } else if (type === 'error') {
+    toastEl.classList.add('bg-danger');
+  }
+
+  toastEl.setAttribute('role', 'alert');
+  toastEl.setAttribute('aria-live', 'assertive');
+  toastEl.setAttribute('aria-atomic', 'true');
+  toastEl.innerHTML = `
+      <div class="toast-header">
+        <strong class="me-auto">Roommate App</strong>
+      </div>
+    <div class="d-flex">
+      <div class="toast-body">
+        ${message}
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  `;
+
+  toastContainer.appendChild(toastEl);
+
+  const toast = new bootstrap.Toast(toastEl, {
+    delay: 1500 // Duración del toast
+  });
+  toast.show();
+}
+
+// Uso de la función showToast
+// showToast('Esto es un mensaje de éxito.', 'success');
+// showToast('Esto es un mensaje de error.', 'error');

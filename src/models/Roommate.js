@@ -13,15 +13,7 @@ const DATA_PATH = path.join(__dirname, '../data/roommates.json');
 
 
 class Roommate {
-    // static async getAll() {
-    //     try {
-    //         const data = await fs.readFile(DATA_PATH, 'utf8');
-    //         return JSON.parse(data).roommates || [];
-    //     } catch (error) {
-    //         console.error('Failed to read roommates:', error);
-    //         return []; // Retorna un array vacío en caso de error.
-    //     }
-    // }
+
 
     static async getAll() {
         try {

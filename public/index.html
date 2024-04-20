@@ -13,20 +13,26 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
   <!-- Estilos Personalizados -->
   <link rel="stylesheet" href="/assets/css/styles.css">
+
+  <link href="https://fonts.googleapis.com/css?family=Teko:700&display=swap" rel="stylesheet">
+
+
 </head>
 
 <body>
 
 
 
-  <div class="container ">
+  <div class="container w-75">
     <!-- Sección de Roommates -->
-    <h1 class="text-center">Roommates</h1>
+
+    <h1><span>ROOMMATES</span></h1>
+
     <hr>
 
     <div class="row mb-4">
-      <div class="col-6">
-        <div class="card shadow animate__animated animate__fadeInLeft">
+      <div class="col-12 col-md-6 mb-4">
+        <div class="card shadow animate__animated animate__fadeInLeft ">
           <div class="card-header bg-primary text-white">
             <h4 class="mb-0">Roommates</h4>
           </div>
@@ -34,7 +40,7 @@
             <button class="btn btn-primary mb-3" id="btnAgregarRoommate">
               Agregar roommate
             </button>
-            <table class="table tabla-roommates">
+            <table class="table tabla-roommates tableR">
               <thead>
                 <tr>
                   <th>Nombre</th>
@@ -54,7 +60,7 @@
 
 
       <!-- Sección de Agregar Gasto -->
-      <div class="col-md-6">
+      <div class="col-12 col-md-6">
         <div class="card shadow animate__animated animate__fadeInUp">
           <div class="card-header bg-success text-white">
             <h4 class="mb-0">Gastos</h4>
@@ -88,7 +94,7 @@
             <h4 class="mb-0">Historial</h4>
           </div>
           <div class="card-body">
-            <table class="table">
+            <table class="table tableH">
               <thead>
                 <tr>
                   <th>Nombre</th>
@@ -106,6 +112,13 @@
       </div>
 
     </div>
+
+    <!-- Toast  -->
+    <div id="toast-container" class="position-fixed top-50 start-50 translate-middle" style="z-index: 1080">
+      <!-- Los Toasts se insertarán aquí -->
+    </div>
+
+
   </div>
   <!-- Bootstrap Bundle con Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

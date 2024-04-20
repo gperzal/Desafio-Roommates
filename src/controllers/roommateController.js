@@ -107,14 +107,14 @@ async function recalcularGastos() {
 
     // Recorre todos los gastos y recalcula los montos de 'debe' y 'recibe'
     for (const gasto of gastos) {
-        const montoPorPersona = gasto.monto / roommates.length;
+        const montoPorPersona = Math.round(gasto.monto / roommates.length);
 
         // Actualiza los montos de 'debe' y 'recibe' para cada roommate
         for (const roommate of roommates) {
             if (gasto.roommateId === roommate.id) {
-                roommate.recibe += gasto.monto - montoPorPersona; // El roommate que pagó recibe la diferencia
+                roommate.recibe += Math.round(gasto.monto - montoPorPersona);
             } else {
-                roommate.debe += montoPorPersona; // Los demás deben su parte del gasto
+                roommate.debe += montoPorPersona; // 
             }
         }
     }
